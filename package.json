@@ -12,7 +12,8 @@
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vux": "^2.9.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
@@ -21,11 +22,15 @@
     "@vue/cli-service": "^3.8.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-loader": "^14.2.4",
+    "vux-loader": "^1.2.9"
   },
   "eslintConfig": {
     "root": true,
@@ -36,7 +41,13 @@
       "plugin:vue/essential",
       "@vue/standard"
     ],
-    "rules": {},
+    "rules": {
+      "arrow-parens": 0,
+      "generator-star-spacing": 0,
+      "no-debugger": 0,
+      "indent": 0,
+      "comma-dangle": 0
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
