@@ -1,0 +1,8 @@
+//@import "./var";
+// 引入mixins.scss前请先引入
+@mixin font-style($color: $font-color-1, $size: $font-size-small, $weight: normal) {
+  color: $color !important;
+  font-size: $size !important;
+  font-weight: $weight !important;
+}
+

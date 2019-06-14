@@ -1,0 +1,48 @@
+
+// get
+$axios.get('/user',{
+  params:{
+    ID:12345
+  }
+})
+.then(function(response){
+  console.log(response);
+})
+.catch(function(err){
+  console.log(err);
+});
+
+// post
+$axios.post('/user',{
+  firstName:'Fred',
+  lastName:'Flintstone'
+}, {config})
+.then(function(res){
+  console.log(res);
+})
+.catch(function(err){
+  console.log(err);
+});
+
+// 一次性并发多个请求
+function getUserAccount(){
+  return axios.get('/user/12345');
+}
+function getUserPermissions(){
+  return axios.get('/user/12345/permissions');
+}
+axios.all([getUserAccount(),getUserPermissions()])
+  .then(axios.spread(function(acct,perms){
+    //当这两个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果
+  }))
+
+// 配置
+axios({
+    method:"POST",
+    url:'/user/12345',
+    data:{
+        firstName:"Fred",
+        lastName:"Flintstone"
+    }
+});
+https://blog.csdn.net/qq_27626333/article/details/76254888

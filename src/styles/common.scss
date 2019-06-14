@@ -1,0 +1,209 @@
+@import "./var";
+@import "mixins";
+
+// 文字一行显示
+.com-a-line-dash {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 文字单行显示,样式注意顺序
+.com-a-line {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 红星号
+.com-red-dot {
+  &:before {
+    content: '*';
+    display: inline-block;
+    color: red;
+    padding-right: 3px;
+  }
+}
+
+// 虚线
+.com-dashed-line {
+  width: 100%;
+  //height: 0px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.com-a-link {
+  color: #1E88E5;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* 路由部分 公用样式 */
+.com-pages {
+  min-height: 100vh;
+  // 上图下文字
+  .icon-text-menu {
+    display: inline-block;
+    text-align: center;
+    margin-left: 10px;
+    cursor: pointer;
+    .img {
+
+    }
+    .span {
+      display: block;
+    }
+  }
+  .com-pg-item {
+    .com-pg-con {
+      margin: 0 auto;
+      box-sizing: border-box;
+      //width: $page_base_width;
+      //text-align: center;
+      padding: 20px 0;
+      @media screen and (max-width: 1400px) {
+        width: $page_base_width_min; // 页面宽度
+      }
+      @media screen and (min-width: 1400px) and (max-width: 1460px) {
+        width: $page_base_width; // 页面宽度
+      }
+      @media screen and (min-width: 1460px) {
+        width: $page_base_width_max; // 页面宽度
+      }
+    }
+  }
+
+  // 搜索页面，搜索字段样式
+  .com-search-box {
+    padding: 20px;
+    background-color: #fff;
+    .com-search-item {
+      font-size: 12px;
+      margin: 14px 0;
+      display: flex;
+      .com-search-label {
+        width: 100px;
+        text-align: right;
+        color: #999999;
+      }
+      .com-search-list {
+        display: inline-block;
+        margin-left: 14px;
+        flex: 1;
+        .com-search-li {
+          margin: 0 10px 5px 10px;
+          color: #333;
+          display: inline-block;
+          padding: 3px 5px;
+          border-radius: 3px;
+          &:hover {
+            background-color: $theme_color;
+            color: #fff;
+            cursor: pointer;
+          }
+          &.active {
+            background-color: $theme_color;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+  .com-pg-con-detail-w { // 文章详情width
+    width: 960px !important;
+  }
+  //  个人中心
+  .com-pg-con-u-c {
+    background-color: #fff;
+    display: flex;
+    margin-top: 20px !important;
+    padding: 20px !important;
+    .com-pg-con-u-container {
+      flex: 1;
+      min-height: 700px;
+      padding: 10px 20px;
+      margin-left: 20px;
+      border: 1px solid #f2f2f2;
+      box-sizing: border-box;
+
+      .pg-con-tj {
+        background-color: #ffffff;
+        border-left: 5px solid $theme_color;
+        padding: 10px 20px !important;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        .tj {
+          color: #333333;
+          font-weight: bold;
+        }
+        .tj-d {
+        }
+      }
+      .pg-tj-con {
+        margin-top: 20px;
+      }
+    }
+  }
+  /*政策云列表样式*/
+  .com-result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #F1F1F1;
+    .img-box {
+      width: 20%;
+      .img {
+        width: 200px;
+        height: 120px;
+      }
+    }
+    .box {
+      padding-right: 20px;
+      width: 80%;
+      .title {
+        color: #333333;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .icon {
+        font-size: 12px;
+        margin: 10px 0;
+        .time {
+          color: #666666;
+          margin-right: 20px;
+        }
+        .taps {
+          color: #fff;
+          padding: 3px 5px;
+          background-color: #f5c828;
+          font-size: 12px;
+          margin-right: 10px;
+        }
+        .taps-red {
+          color: #fff;
+          padding: 3px 5px;
+          background-color: #d91a10;
+          font-size: 12px;
+          margin-right: 10px;
+        }
+      }
+      .text {
+        font-size: 12px;
+        line-height: 20px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
