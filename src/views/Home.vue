@@ -18,7 +18,9 @@
     },
     computed: {},
     created () {
-      API.account.weixinJs().then(data => {
+      API.account.weixinJs({
+        url: location.href
+      }).then(data => {
         console.log(data)
         let da = data.data || {data: {}}
         WechatPlugin.$wechat.config({

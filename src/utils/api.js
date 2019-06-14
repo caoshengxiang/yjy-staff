@@ -27,7 +27,7 @@ export default {
     },
     weixinJs (params) {
       return new Promise((resolve, reject) => {
-        $axios.get('/acRecord/front/getjsSign', {params: params}).then((res) => {
+        $axios.get('/acRecord/admin/getjsSign', {params: params}).then((res) => {
           resolve(res.data)
         }).catch((err) => {
           reject(new Error(err))
