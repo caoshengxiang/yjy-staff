@@ -32,12 +32,12 @@ $axios.interceptors.response.use((response) => {
   if (response.data.status === false) { // 后台返回错误
     if (response.data.error) {
       setTimeout(() => {
-        // Message.error(response.data.error.message`)
+        // Message.error(response.data.error.message)
       }, 0)
       setTimeout(() => {
         if (response.data.error.statusCode === '10007') { // 未登录，10007登录过期
           // 后台返回得登录过期，重置登录状态
-          // $router.push({name: 'login'})
+          $router.push({name: 'login'})
         }
       }, 1000)
     }

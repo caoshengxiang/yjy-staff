@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/index'
 import './registerServiceWorker'
-import { Icon, ToastPlugin } from 'vux'
+import { Icon, ToastPlugin, LoadingPlugin } from 'vux'
 import FastClick from 'fastclick'
 import './styles/basic.scss'
 import './styles/common.scss'
@@ -28,6 +28,7 @@ Vue.prototype.$VueCookies = VueCookies
 
 Vue.component('icon', Icon)
 Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin)
 
 FastClick.attach(document.body) // 移除移动端页面点击延迟
 

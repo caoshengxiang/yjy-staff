@@ -25,9 +25,17 @@ export default new Router({
       component: routerV,
       children: [
         {
-          path: 'home',
-          name: 'home',
-          component: () => import('./views/Home'),
+          path: 'hexiao/Home',
+          name: 'hexiaoHome',
+          component: () => import('./views/hexiao/Home'),
+        }, {
+          path: 'hexiao/detail',
+          name: 'hexiaoDetail',
+          component: () => import('./views/hexiao/detail'),
+        }, {
+          path: 'history/detail',
+          name: 'historyDetail',
+          component: () => import('./views/hexiao/history'),
         }, {
           path: 'about',
           name: 'about',

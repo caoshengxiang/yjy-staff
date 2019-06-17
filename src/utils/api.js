@@ -27,12 +27,47 @@ export default {
     },
     weixinJs (params) {
       return new Promise((resolve, reject) => {
-        $axios.get('/acRecord/admin/getjsSign', {params: params}).then((res) => {
+        $axios.get('/acRecord/admin/getjsSign', {
+          params: params,
+        }).then((res) => {
           resolve(res.data)
         }).catch((err) => {
           reject(new Error(err))
         })
       })
-    }
+    },
+  },
+  hexiao: {
+    getInfoByCheckCode (params) {
+      return new Promise((resolve, reject) => {
+        $axios.get('/acRecord/admin/getInfoByCheckCode', {
+          params: params,
+        }).then((res) => {
+          resolve(res.data)
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
+    getRecords (params) {
+      return new Promise((resolve, reject) => {
+        $axios.get('/acRecord/admin/getRecords', {
+          params: params,
+        }).then((res) => {
+          resolve(res.data)
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
+    doCheck (params) {
+      return new Promise((resolve, reject) => {
+        $axios.post('/acRecord/admin/doCheck', params).then((res) => {
+          resolve(res.data)
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
   },
 }
