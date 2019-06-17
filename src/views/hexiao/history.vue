@@ -45,7 +45,7 @@
     data () {
       return {
         value1: '',
-        list: []
+        list: [],
       }
     },
     methods: {
@@ -63,20 +63,28 @@
         console.log('change', value)
       },
       getHistory (year, month) {
+        this.$vux.loading.show({
+          transition: '',
+          text: '加载中...',
+        })
+
         API.hexiao.getRecords({
           year: year,
           month: month,
         }).then(da => {
-          this.list = da.data
+          setTimeout(() => {
+            this.list = da.data
+            this.$vux.loading.hide()
+          }, 1000)
         })
-      }
+      },
     },
     created () {
       let year = new Date().getFullYear()
       let month = new Date().getMonth() + 1
       this.value1 = this.$moment(new Date().getTime(), 'YYYY年MM月')
       this.getHistory(year, month)
-    }
+    },
   }
 </script>
 
