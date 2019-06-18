@@ -11,7 +11,7 @@
     </div>
     <div class="box-2">
       <img class="scan-btn" @click="scanQRCode" id="scanQRCode" src="../../../public/img/icon/scan-btn.png" alt="">
-      <div class="tips">请顾客在【我的活动】中点击【查看详情】</div>
+      <div class="tips">请顾客在【我的活动】中点击【查看票券详情】</div>
       <div class="tips-2">扫码有问题？ 尝试<span class="btn" @click="showConfirm = true">手动核销</span></div>
     </div>
     <div class="logout">
@@ -38,6 +38,14 @@
     >
       <p style="text-align:center;">确定退出登录吗？</p>
     </confirm>
+
+    <confirm
+      v-model="errorDialog"
+      :show-cancel-button="false"
+      title="操作提示"
+      @on-confirm="errorDialog = false">
+      <p style="text-align:center;">请切换至微信扫码或尝试手动核销</p>
+    </confirm>
   </div>
 </template>
 
@@ -45,6 +53,7 @@
   // @ is an alias to /src
   import API from '../../utils/api'
   import { WechatPlugin, Confirm } from 'vux'
+  import { getIsWxClient } from '../../utils/utils'
 
   export default {
     components: {
@@ -56,6 +65,7 @@
         userInfo: this.$webStorage.getItem('userInfo'),
         showConfirm: false,
         showLoginOut: false,
+        errorDialog: false
       }
     },
     computed: {},
@@ -117,6 +127,11 @@
         }, 1000)
       },
       scanQRCode () {
+        if (!getIsWxClient()) {
+          this.errorDialog = true
+          return false
+        }
+        let that = this
         WechatPlugin.$wechat.scanQRCode({
           needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
           scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
@@ -124,27 +139,27 @@
             var result = res.resultStr // 当needResult 为 1 时，扫码返回的结果
             // console.log(result)
             // alert(result)
-            this.$vux.loading.show({
+            that.$vux.loading.show({
               transition: '',
               text: '查询中...',
             })
-            this.getInfoByCheckCode(result, (da) => {
+            that.getInfoByCheckCode(result, (da) => {
               setTimeout(() => {
-                this.$vux.loading.hide()
-                this.showConfirm = false
-                this.$router.push({name: 'hexiaoDetail', query: {checkCode: result}})
+                that.$vux.loading.hide()
+                that.showConfirm = false
+                that.$router.push({name: 'hexiaoDetail', query: {checkCode: result}})
               }, 200)
             }, (da) => {
-              this.$vux.loading.hide()
-              this.$vux.toast.text(da.error.message)
+              that.$vux.loading.hide()
+              that.$vux.toast.text(da.error.message)
             })
             // window.location.href = result// 因为我这边是扫描后有个链接，然后跳转到该页面
           },
         })
-      }
+      },
     },
     created () {
-      console.log('url', location.href.split('#')[0])
+      // console.log('url', location.href.split('#')[0])
       API.account.weixinJs({
         url: location.href,
         // url: ' yjy.yanjiyou.net'

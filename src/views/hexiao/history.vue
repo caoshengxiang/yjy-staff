@@ -11,7 +11,7 @@
           @on-cancel="log('cancel')"
           @on-confirm="onConfirm"
           @on-hide="log('hide', $event)"></datetime>
-        <x-icon type="ios-arrow-right" size="22"></x-icon>
+        <x-icon type="ios-arrow-down" size="22"></x-icon>
       </div>
     </sticky>
 
@@ -21,7 +21,7 @@
         <div class="line-box">
           <span>{{item.applyerName}}</span>
           <span>{{item.applerPhone}}</span>
-          <span>{{item.applyerName}}人</span>
+          <span>{{item.checkedPerons}}人</span>
         </div>
         <div class="hexiao-time">{{$moment(item.created, 'M月DD日 HH:mm')}}</div>
       </div>
@@ -71,9 +71,12 @@
         API.hexiao.getRecords({
           year: parseInt(year, 10),
           month: parseInt(month, 10),
+          current: 1,
+          size: 10000,
+          descs: 'created'
         }).then(da => {
           setTimeout(() => {
-            this.list = da.data
+            this.list = da.data.records
             this.$vux.loading.hide()
           }, 1000)
         })

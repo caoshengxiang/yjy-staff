@@ -14,11 +14,11 @@
 </style>
 <script>
   // @ is an alias to /src
-  import pageLoading from './components/pageLoading'
+  // import pageLoading from './components/pageLoading'
 
   export default {
     components: {
-      pageLoading,
+      // pageLoading,
     },
     name: 'home',
   }

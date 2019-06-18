@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="hexiao" @click="submit" v-if="detail.waitingCheckPersons > 0"><span>确认核销</span></div>
-    <div class="hexiao-disabled" v-else><span>确认核销</span></div>
+    <div class="hexiao-disabled" @click="backHome" v-else><span>无可核销人数，点击直接返回</span></div>
   </div>
 </template>
 
@@ -77,6 +77,9 @@
             this.$vux.toast.text(da.error.message)
           }
         })
+      },
+      backHome () {
+        this.$router.push({name: 'hexiaoHome'})
       }
     },
     created () {

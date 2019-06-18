@@ -1,3 +1,16 @@
+/**
+ * 判断是否是微信环境
+ */
+export function getIsWxClient () {
+  var ua = window.navigator.userAgent.toLowerCase()
+  // eslint-disable-next-line
+  if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+    return true
+  } else {
+    return false
+  }
+}
+
 /*
 * 获取设备平台
 *
