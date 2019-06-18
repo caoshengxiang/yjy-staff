@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routerV from './components/routerV'
 import VueCookies from 'vue-cookies'
+import store from './store/index'
 
 Vue.use(Router)
 
@@ -77,6 +78,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  store.commit('mut_pageLoading', true) // 页面开始加载
   if (to.meta.title) {
     document.title = to.meta.title // 在路由里面写入的meta里面的title字段
   } else {
@@ -101,6 +103,9 @@ router.beforeEach((to, from, next) => {
 
 // 路由切换时回到页面顶部
 router.afterEach((to, from, next) => {
+  setTimeout(() => { // 加载比较快时Loading组件一闪而过体验也不大好，那么你可以延迟设置loading=false。
+    store.commit('mut_pageLoading', false)
+  }, 1000)
   window.scrollTo(0, 0)
 })
 
