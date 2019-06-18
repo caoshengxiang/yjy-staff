@@ -69,8 +69,8 @@
         })
 
         API.hexiao.getRecords({
-          year: year,
-          month: month,
+          year: parseInt(year, 10),
+          month: parseInt(month, 10),
         }).then(da => {
           setTimeout(() => {
             this.list = da.data

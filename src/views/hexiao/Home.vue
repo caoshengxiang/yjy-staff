@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="box-2">
-      <img class="scan-btn" id="scanQRCode" src="../../../public/img/icon/scan-btn.png" alt="">
+      <img class="scan-btn" @click="scanQRCode" id="scanQRCode" src="../../../public/img/icon/scan-btn.png" alt="">
       <div class="tips">请顾客在【我的活动】中点击【查看详情】</div>
       <div class="tips-2">扫码有问题？ 尝试<span class="btn" @click="showConfirm = true">手动核销</span></div>
     </div>
@@ -35,7 +35,7 @@
              :close-on-confirm="false"
              title="退出登录"
              @on-confirm="onConfirmLoginOut"
-             >
+    >
       <p style="text-align:center;">确定退出登录吗？</p>
     </confirm>
   </div>
@@ -48,7 +48,7 @@
 
   export default {
     components: {
-      Confirm
+      Confirm,
     },
     name: 'home',
     data () {
@@ -82,7 +82,7 @@
         }
         this.$vux.loading.show({
           transition: '',
-          text: '查询中...'
+          text: '查询中...',
         })
         this.getInfoByCheckCode(msg, (da) => {
           setTimeout(() => {
@@ -105,7 +105,7 @@
       onConfirmLoginOut () {
         this.$vux.loading.show({
           transition: '',
-          text: '正在退出登录...'
+          text: '正在退出登录...',
         })
         this.$VueCookies.remove('token')
         this.$webStorage.removeItem('userInfo')
@@ -115,16 +115,41 @@
           this.showLoginOut = false
           this.$router.push({name: 'login'})
         }, 1000)
+      },
+      scanQRCode () {
+        WechatPlugin.$wechat.scanQRCode({
+          needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+          scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
+          success: function (res) {
+            var result = res.resultStr // 当needResult 为 1 时，扫码返回的结果
+            // console.log(result)
+            // alert(result)
+            this.$vux.loading.show({
+              transition: '',
+              text: '查询中...',
+            })
+            this.getInfoByCheckCode(result, (da) => {
+              setTimeout(() => {
+                this.$vux.loading.hide()
+                this.showConfirm = false
+                this.$router.push({name: 'hexiaoDetail', query: {checkCode: result}})
+              }, 200)
+            }, (da) => {
+              this.$vux.loading.hide()
+              this.$vux.toast.text(da.error.message)
+            })
+            // window.location.href = result// 因为我这边是扫描后有个链接，然后跳转到该页面
+          },
+        })
       }
     },
     created () {
-      let that = this
       console.log('url', location.href.split('#')[0])
       API.account.weixinJs({
-        url: location.href
+        url: location.href,
         // url: ' yjy.yanjiyou.net'
       }).then(da => {
-        console.log(da)
+        // console.log(da)
         WechatPlugin.$wechat.config({
           // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
           debug: false,
@@ -144,28 +169,18 @@
         alert('出错了：' + res.errMsg) // 这个地方的好处就是WechatPlugin.$wechat.config配置错误，会弹出窗口哪里错误，然后根据微信文档查询即可。
       })
 
-      // WechatPlugin.$wechat.ready(function () {
-      //   WechatPlugin.$wechat.checkJsApi({
-      //     jsApiList: ['scanQRCode'],
-      //     success: function (res) {
-      //
-      //     },
-      //   })
+      WechatPlugin.$wechat.ready(function () {
+        WechatPlugin.$wechat.checkJsApi({
+          jsApiList: ['scanQRCode'],
+          success: function (res) {
+            console.info('checkJsApi', res.checkResult)
+          },
+        })
 
         // 点击按钮扫描二维码
         // document.querySelector('#scanQRCode').onclick = function () {
-        //   that.$router.push({name: 'hexiaoDetail', query: {id: 123}})
-        //   WechatPlugin.$wechat.scanQRCode({
-        //     needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-        //     scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
-        //     success: function (res) {
-        //       var result = res.resultStr // 当needResult 为 1 时，扫码返回的结果
-        //       console.log(result)
-        //       // window.location.href = result// 因为我这边是扫描后有个链接，然后跳转到该页面
-        //     },
-        //   })
         // }
-      // })
+      })
     },
   }
 </script>
