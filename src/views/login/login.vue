@@ -64,6 +64,12 @@
         })
       },
     },
+    created () {
+      let token = this.$VueCookies.get('token')
+      if (token) {
+        this.$router.push({name: 'hexiaoHome'})
+      }
+    }
   }
 </script>
 
