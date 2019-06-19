@@ -206,12 +206,13 @@
     background-repeat: no-repeat;
     background-size: 750/7.5vw 505/7.5vw;
     padding: 56/7.5vw 34/7.5vw;
+    box-sizing: border-box;
 
     .box {
       display: flex;
       justify-content: space-between;
       color: #333333;
-      margin-bottom: 90/7.5vw;
+      margin-bottom: 110/7.5vw;
       font-weight: bold;
       .l {
         line-height: 46/7.5vw;
@@ -225,7 +226,7 @@
       width: 684/7.5vw;
       height: 550/7.5vw;
       background-color: #ffffff;
-      box-shadow: rgba(18, 18, 18, 0.2) 0 5/7.5vw 20/7.5vw;
+      box-shadow: rgba(120, 120, 120, 0.1) 0 12/7.5vw 20/7.5vw;
       text-align: center;
       border-radius: 10/7.5vw;
       .scan-btn {
@@ -251,7 +252,7 @@
       font-size: 28/7.5vmin;
       color: #D87B77;
       text-align: center;
-      margin-top: 280/7.5vw;
+      margin-top: 260/7.5vw;
     }
   }
 </style>

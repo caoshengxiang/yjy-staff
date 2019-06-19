@@ -99,7 +99,7 @@
       width: 684/7.5vw;
       box-sizing: border-box;
       background-color: #ffffff;
-      box-shadow: rgba(18, 18, 18, 0.1) 0 5/7.5vw 20/7.5vw;
+      box-shadow: rgba(120, 120, 120, 0.1) 0 12/7.5vw 20/7.5vw;
       border-radius: 20/7.5vw;
       padding: 55/7.5vw;
       .form-group {
@@ -108,7 +108,7 @@
         .title {
           font-size: 26/7.5vmin;
           color: #999999;
-          margin-bottom: 31/7.5vw;
+          margin-bottom: 20/7.5vw;
         }
         .text {
           font-size: 32/7.5vmin;

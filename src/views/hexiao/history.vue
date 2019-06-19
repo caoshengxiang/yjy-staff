@@ -20,7 +20,7 @@
         <div class="name">{{item.activityName}}</div>
         <div class="line-box">
           <span>{{item.applyerName}}</span>
-          <span>{{item.applerPhone}}</span>
+          <span v-if="item.applerPhone">{{item.applerPhone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')}}</span>
           <span>{{item.checkedPerons}}人</span>
         </div>
         <div class="hexiao-time">{{$moment(item.created, 'M月DD日 HH:mm')}}</div>
