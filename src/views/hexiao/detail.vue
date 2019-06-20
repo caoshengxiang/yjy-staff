@@ -93,7 +93,7 @@
     background-image: url("../../../public/img/icon/scan-bg.png");
     background-repeat: no-repeat;
     background-size: 750/7.5vw 505/7.5vw;
-    padding: 56/7.5vw 34/7.5vw;
+    padding: 32/7.5vw 34/7.5vw;
     box-sizing: border-box;
     .box-2 {
       width: 684/7.5vw;
@@ -101,14 +101,14 @@
       background-color: #ffffff;
       box-shadow: rgba(120, 120, 120, 0.1) 0 12/7.5vw 20/7.5vw;
       border-radius: 20/7.5vw;
-      padding: 55/7.5vw;
+      padding: 20/7.5vw 55/7.5vw;
       .form-group {
         padding: 10/7.5vw 0;
         border-bottom: 1px solid #E6E6E6;
         .title {
           font-size: 26/7.5vmin;
           color: #999999;
-          margin-bottom: 20/7.5vw;
+          margin-bottom: 10/7.5vw;
         }
         .text {
           font-size: 32/7.5vmin;
@@ -122,7 +122,7 @@
       line-height: 104/7.5vw;
       font-size: 32/7.5vw;
       font-weight: bold;
-      margin-top: 64/7.5vw;
+      margin-top: 30/7.5vw;
       text-align: center;
     }
     .hexiao-disabled {
