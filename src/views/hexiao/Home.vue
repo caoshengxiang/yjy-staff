@@ -159,7 +159,7 @@
       },
     },
     created () {
-      alert(location.href)
+      // alert(location.href)
       API.account.weixinJs({
         // url: location.href,
         url: encodeURIComponent(location.href.split('#')[0])

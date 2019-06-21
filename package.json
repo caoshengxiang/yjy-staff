@@ -6,7 +6,9 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "release:test": "npm run build && bash ./bash/test.sh"
+    "release:test": "npm run build && bash ./bash/test.sh",
+    "push:prod": "bash ./bash/prod.sh",
+    "push:prod2": "bash ./bash/prod2.sh"
   },
   "dependencies": {
     "axios": "^0.19.0",
