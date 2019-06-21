@@ -34,12 +34,13 @@
       login () {
         this.errMessage = ''
         if (!this.account || !this.password) {
-          this.$vux.toast.text('请输入账号和密码！')
+          this.$vux.toast.text('请输入账号和密码!')
+          // this.errMessage = '请输入账号和密码!'
           return false
         }
         this.$vux.loading.show({
           transition: '',
-          text: '正在登录...'
+          text: '正在登录...',
         })
         API.account.login({
           account: this.account,
@@ -56,7 +57,7 @@
             }, 1000)
           } else {
             this.$vux.loading.hide()
-            this.errMessage = da.error.message
+            // this.errMessage = da.error.message
             this.$vux.toast.text(da.error.message)
           }
         }).then(err => {
@@ -69,7 +70,7 @@
       if (token) {
         this.$router.push({name: 'hexiaoHome'})
       }
-    }
+    },
   }
 </script>
 
@@ -89,8 +90,9 @@
       margin-bottom: 40/7.5vw;
       input {
         padding: 25/7.5vw 0;
-        width: 100%;
         border: 0;
+        width: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       }
     }
   }

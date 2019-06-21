@@ -6,7 +6,7 @@
         <div>工号：{{userInfo.account}}</div>
       </div>
       <div class="r" @click="historyDetail">
-        历史核销
+        核销记录
       </div>
     </div>
     <div class="box-2">
@@ -159,10 +159,10 @@
       },
     },
     created () {
-      // console.log('url', location.href.split('#')[0])
+      alert(location.href)
       API.account.weixinJs({
-        url: location.href,
-        // url: ' yjy.yanjiyou.net'
+        // url: location.href,
+        url: encodeURIComponent(location.href.split('#')[0])
       }).then(da => {
         // console.log(da)
         WechatPlugin.$wechat.config({

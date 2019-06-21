@@ -30,7 +30,20 @@ Vue.component('icon', Icon)
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
 
-FastClick.attach(document.body) // 移除移动端页面点击延迟
+/* FastClick 导致 IOS下 input 点击无效，重压才会弹起键盘  */
+const str = navigator.userAgent.toLowerCase()
+const ver = str.match(/cpu iphone os (.*?) like mac os/)
+
+if (!ver) { // 非IOS系统
+            // 引入fastclick 做相关处理
+  FastClick.attach(document.body) // 移除移动端页面点击延迟
+} else {
+  if (parseInt(ver[1]) < 11) {
+    // 引入fastclick 做相关处理
+    FastClick.attach(document.body) // 移除移动端页面点击延迟
+  }
+}
+/* FastClick 导致 IOS下 input 点击无效，重压才会弹起键盘  */
 
 Vue.config.productionTip = false
 
