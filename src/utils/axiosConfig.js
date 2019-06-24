@@ -1,6 +1,6 @@
 import { serverUrl } from './const'
 // import { Message } from 'element-ui'
-// import webStorage from 'webStorage'
+import webStorage from 'webStorage'
 import $router from '../router'
 import $axios from 'axios'
 import VueCookies from 'vue-cookies'
@@ -38,6 +38,8 @@ $axios.interceptors.response.use((response) => {
         if (response.data.error.statusCode === '10007') { // 未登录，10007登录过期
           // 后台返回得登录过期，重置登录状态
           $router.push({name: 'login'})
+          VueCookies.remove('token')
+          webStorage.removeItem('userInfo')
         }
       }, 1000)
     }
