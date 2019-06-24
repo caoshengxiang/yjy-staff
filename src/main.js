@@ -47,7 +47,7 @@ if (!ver) { // 非IOS系统
 
 Vue.config.productionTip = false
 
-new Vue({
+window.app = new Vue({
   router,
   store,
   render: h => h(App),

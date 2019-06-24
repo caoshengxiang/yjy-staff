@@ -1,4 +1,4 @@
-import {serverUrl} from './const'
+import { serverUrl } from './const'
 // import { Message } from 'element-ui'
 // import webStorage from 'webStorage'
 import $router from '../router'
@@ -7,22 +7,22 @@ import VueCookies from 'vue-cookies'
 
 $axios.defaults.baseURL = serverUrl
 $axios.defaults.timeout = 100000
-if (VueCookies.get('token')) { // 处理刷新时authKey丢失, 统一设置auth移驾至登录接口
-  $axios.defaults.headers.common['token'] = VueCookies.get(
-    'token')
-}
 // $axios.defaults.headers.common['code'] = 1
 $axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
 // 添加一个请求拦截器
 // let loadinginstace
+
+// console.log('aaaaaa', window)
+
 $axios.interceptors.request.use((config) => {
+  if (VueCookies.get('token')) { // 统一设置token 请求头
+    config.headers.token = VueCookies.get('token')
+  }
   return config
 }, (error) => {
   // 当出现请求错误是做一些事
-  // Message.error({
-  //   message: '加载超时',
-  // })
+  window.app.$vux.toast.text('加载超时')
   return Promise.reject(error)
 })
 
@@ -32,12 +32,11 @@ $axios.interceptors.response.use((response) => {
   if (response.data.status === false) { // 后台返回错误
     if (response.data.error) {
       setTimeout(() => {
-        // Message.error(response.data.error.message)
+        window.app.$vux.toast.text(response.data.error.message)
       }, 0)
       setTimeout(() => {
         if (response.data.error.statusCode === '10007') { // 未登录，10007登录过期
           // 后台返回得登录过期，重置登录状态
-          alert()
           $router.push({name: 'login'})
         }
       }, 1000)
@@ -46,9 +45,7 @@ $axios.interceptors.response.use((response) => {
   return Promise.resolve(response)
 }, (error) => {
   // 对返回的错误进行一些处理
-  // Message.error({
-  // message: '好像发生了一点错误,需要检查！' + error,
-  // })
+  window.app.$vux.toast.text(error)
   return Promise.reject(error)
 })
 

@@ -102,7 +102,7 @@
           }, 200)
         }, (da) => {
           this.$vux.loading.hide()
-          this.$vux.toast.text(da.error.message)
+          // this.$vux.toast.text(da.error.message)
         })
       },
       onHide () {
@@ -151,7 +151,7 @@
               }, 200)
             }, (da) => {
               that.$vux.loading.hide()
-              that.$vux.toast.text(da.error.message)
+              // that.$vux.toast.text(da.error.message)
             })
             // window.location.href = result// 因为我这边是扫描后有个链接，然后跳转到该页面
           },

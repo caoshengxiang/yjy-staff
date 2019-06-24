@@ -63,7 +63,7 @@
            this.detail = da.data
             this.num = da.data.waitingCheckPersons
           } else {
-            this.$vux.toast.text(da.error.message)
+            // this.$vux.toast.text(da.error.message)
             this.$router.push({name: 'hexiaoHome'})
           }
         })
@@ -74,7 +74,7 @@
             this.$vux.toast.text('核销成功')
             this.$router.push({name: 'hexiaoHome'})
           } else {
-            this.$vux.toast.text(da.error.message)
+            // this.$vux.toast.text(da.error.message)
           }
         })
       },

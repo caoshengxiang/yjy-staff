@@ -75,10 +75,12 @@
           size: 10000,
           descs: 'created'
         }).then(da => {
-          setTimeout(() => {
-            this.list = da.data.records
-            this.$vux.loading.hide()
-          }, 1000)
+          if (da.status) {
+            setTimeout(() => {
+              this.list = da.data.records
+            }, 1000)
+          }
+          this.$vux.loading.hide()
         })
       },
     },
