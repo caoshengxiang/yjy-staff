@@ -56,7 +56,7 @@
             this.$webStorage.setItem('userInfo', da.data)
             setTimeout(() => {
               this.$vux.loading.hide()
-              this.$router.push({name: 'hexiaoHome'})
+              this.$router.replace({name: 'hexiaoHome'})
             }, 1000)
           } else {
             this.$vux.loading.hide()
