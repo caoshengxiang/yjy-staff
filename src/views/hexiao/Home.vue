@@ -161,10 +161,10 @@
         if (that.hasClic) {
           return false
         }
-        // if (!getIsWxClient()) {
-        //   this.errorDialog = true
-        //   return false
-        // }
+        if (!getIsWxClient()) {
+          this.errorDialog = true
+          return false
+        }
         // alert(location.href)
         that.hasClick = true
         API.account.weixinJs({

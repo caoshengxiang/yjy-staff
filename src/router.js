@@ -32,7 +32,7 @@ const router = new Router({
       component: routerV,
       children: [
         {
-          path: 'hexiao/Home',
+          path: 'hexiao/home',
           name: 'hexiaoHome',
           component: () => import('./views/hexiao/Home'),
           meta: {
