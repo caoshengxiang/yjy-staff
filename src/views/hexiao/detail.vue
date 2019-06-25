@@ -28,13 +28,15 @@
       <div class="form-group">
         <div class="title">核销人数</div>
         <div class="text" style="height: 40px">
-          <inline-x-number style="display:block;color: #333333;" :min="1" :max="detail.waitingCheckPersons" width="50px" button-style="square"
+          <inline-x-number style="display:block;color: #333333;" :min="1" :max="detail.waitingCheckPersons" width="50px"
+                           button-style="square"
                            v-model="num"></inline-x-number>
         </div>
       </div>
     </div>
-    <div class="hexiao" @click="submit" v-if="detail.waitingCheckPersons > 0"><span>确认核销</span></div>
-    <div class="hexiao-disabled" @click="backHome" v-else><span>无可核销人数，点击直接返回</span></div>
+    <div class="hexiao" @click="submit" v-if="detail.waitingCheckPersons > 0 && !btnActive"><span>确认核销</span></div>
+    <div class="hexiao-disabled" @click="backHome" v-if="detail.waitingCheckPersons > 0 && btnActive"><span>点击返回</span></div>
+    <div class="hexiao-disabled" @click="backHome" v-if="detail.waitingCheckPersons <= 0"><span>点击返回</span></div>
   </div>
 </template>
 
@@ -51,6 +53,7 @@
       return {
         num: 0,
         detail: {},
+        btnActive: false,
       }
     },
     methods: {
@@ -60,7 +63,7 @@
         }
         API.hexiao.getInfoByCheckCode({checkCode: this.$route.query.checkCode}).then(da => {
           if (da.status) {
-           this.detail = da.data
+            this.detail = da.data
             this.num = da.data.waitingCheckPersons
           } else {
             // this.$vux.toast.text(da.error.message)
@@ -69,22 +72,27 @@
         })
       },
       submit () {
+        this.btnActive = true
         API.hexiao.doCheck({id: this.detail.id, checkPerson: this.num}).then(da => {
           if (da.status) {
             this.$vux.toast.text('核销成功')
-            this.$router.push({name: 'hexiaoHome'})
+            setTimeout(() => {
+              this.$router.push({name: 'hexiaoHome'})
+            }, 1200)
+            // this.btnActive = false
           } else {
             // this.$vux.toast.text(da.error.message)
+            // this.btnActive = false
           }
         })
       },
       backHome () {
         this.$router.push({name: 'hexiaoHome'})
-      }
+      },
     },
     created () {
       this.getInfoByCheckCode()
-    }
+    },
   }
 </script>
 

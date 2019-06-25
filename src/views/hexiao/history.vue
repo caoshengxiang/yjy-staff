@@ -73,12 +73,10 @@
           month: parseInt(month, 10),
           current: 1,
           size: 10000,
-          descs: 'created'
+          descs: 'created',
         }).then(da => {
           if (da.status) {
-            setTimeout(() => {
-              this.list = da.data.records
-            }, 1000)
+            this.list = da.data.records
           }
           this.$vux.loading.hide()
         })

@@ -93,6 +93,7 @@
           if (da.status) {
             success && success(da)
           } else {
+            window.scrollTo(0, 0)
             error && error(da)
           }
         })
@@ -104,6 +105,7 @@
         console.log('on cancel')
       },
       onConfirm (msg) {
+        window.scrollTo(0, 0)
         if (!msg) {
           this.$vux.toast.text('请输入核销码！')
           return
@@ -125,6 +127,7 @@
       },
       onHide () {
         console.log('on hide')
+        window.scrollTo(0, 0)
       },
       onShow () {
         this.$refs.confirm5.setInputValue('')
@@ -146,6 +149,10 @@
       },
       scanQRCode () {
         let that = this
+        if (!getIsWxClient()) {
+          this.errorDialog = true
+          return false
+        }
         if (!that.hasConfig) {
           return
         }
@@ -156,7 +163,6 @@
             var result = res.resultStr // 当needResult 为 1 时，扫码返回的结果
             // console.log(result)
             // alert(result)
-            that.hasConfig = false
             that.$vux.loading.show({
               transition: '',
               text: '查询中...',
@@ -164,12 +170,10 @@
             that.getInfoByCheckCode(result, (da) => {
               setTimeout(() => {
                 that.$vux.loading.hide()
-                that.showConfirm = false
                 that.$router.push({name: 'hexiaoDetail', query: {checkCode: result}})
               }, 200)
             }, (da) => {
               that.$vux.loading.hide()
-              // that.$vux.toast.text(da.error.message)
             })
             // window.location.href = result// 因为我这边是扫描后有个链接，然后跳转到该页面
           },
@@ -177,14 +181,13 @@
       },
       scanQRCodeHandle () {
         const that = this
-        if (!getIsWxClient()) {
-          this.errorDialog = true
-          return false
-        }
+
+        // 进行签名的时候  Android 不用使用之前的链接， ios 需要
+        let signLink = /(Android)/i.test(navigator.userAgent) ? location.href.split('#')[0] : window.entryUrl
         // alert(location.href)
         API.account.weixinJs({
           // url: location.href,
-          url: encodeURIComponent(location.href.split('#')[0]),
+          url: encodeURIComponent(signLink),
         }).then(da => {
           // console.log(da)
           WechatPlugin.$wechat.config({
@@ -204,7 +207,6 @@
         })
         WechatPlugin.$wechat.error(function (res) {
           alert('出错了：' + res.errMsg) // 这个地方的好处就是WechatPlugin.$wechat.config配置错误，会弹出窗口哪里错误，然后根据微信文档查询即可。
-          that.hasConfig = false
         })
 
         WechatPlugin.$wechat.ready(function () {
@@ -222,6 +224,9 @@
           })
         })
       },
+    },
+    beforeCreate () {
+
     },
     created () {
       this.scanQRCodeHandle()
