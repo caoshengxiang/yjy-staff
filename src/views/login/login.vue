@@ -3,10 +3,10 @@
     <div class="login-bg"></div>
     <div class="form">
       <div class="form-group">
-        <input type="text" v-model="account" placeholder="账号">
+        <input @blur="blurHandle" type="text" v-model="account" placeholder="账号">
       </div>
       <div class="form-group">
-        <input type="password" v-model="password" placeholder="密码">
+        <input @blur="blurHandle" type="password" v-model="password" placeholder="密码">
       </div>
       <div v-if="errMessage" class="err-message">{{errMessage}}</div>
       <div @click="login" class="login-btn">登录</div>
@@ -31,6 +31,9 @@
       }
     },
     methods: {
+      blurHandle () {
+        window.scrollTo(0, 0)
+      },
       login () {
         this.errMessage = ''
         if (!this.account || !this.password) {

@@ -66,17 +66,17 @@
     * IOS：微信IOS版，每次切换路由，SPA的url是不会变的，发起签名请求的url参数必须是当前页面的url就是最初进入页面时的url
     * Android：微信安卓版，每次切换路由，SPA的url是会变的，发起签名请求的url参数必须是当前页面的url(不是最初进入页面时的)
     * */
-    beforeRouteEnter (to, from, next) {
-      var u = navigator.userAgent
-      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) // ios终端
-      // XXX: 修复iOS版微信HTML5 History兼容性问题
-      if (isiOS && to.path !== location.pathname) {
-        // 此处不可使用location.replace
-        location.assign(to.fullPath)
-      } else {
-        next()
-      }
-    },
+    // beforeRouteEnter (to, from, next) {
+    //   var u = navigator.userAgent
+    //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) // ios终端
+    //   // XXX: 修复iOS版微信HTML5 History兼容性问题
+    //   if (isiOS && to.path !== location.pathname) {
+    //     // 此处不可使用location.replace
+    //     location.assign(to.fullPath)
+    //   } else {
+    //     next()
+    //   }
+    // },
     data () {
       return {
         userInfo: this.$webStorage.getItem('userInfo'),
@@ -183,11 +183,10 @@
         const that = this
 
         // 进行签名的时候  Android 不用使用之前的链接， ios 需要
-        let signLink = /(Android)/i.test(navigator.userAgent) ? location.href.split('#')[0] : window.entryUrl
-        // alert(location.href)
+        // let signLink = /(Android)/i.test(navigator.userAgent) ? location.href.split('#')[0] : window.entryUrl
         API.account.weixinJs({
-          // url: location.href,
-          url: encodeURIComponent(signLink),
+          url: encodeURIComponent(location.href.split('#')[0]),
+          // url: encodeURIComponent(signLink),
         }).then(da => {
           // console.log(da)
           WechatPlugin.$wechat.config({
