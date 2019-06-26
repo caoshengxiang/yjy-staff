@@ -14,7 +14,7 @@
 
     <!--<button @click="login" class="login-btn">登录</button>-->
 
-    <div style="text-align: center;margin-top: 50px;">1.0.3</div>
+    <!--<div style="text-align: center;margin-top: 50px;">1.0.3</div>-->
   </div>
 </template>
 
