@@ -66,17 +66,17 @@
     * IOS：微信IOS版，每次切换路由，SPA的url是不会变的，发起签名请求的url参数必须是当前页面的url就是最初进入页面时的url
     * Android：微信安卓版，每次切换路由，SPA的url是会变的，发起签名请求的url参数必须是当前页面的url(不是最初进入页面时的)
     * */
-    // beforeRouteEnter (to, from, next) {
-    //   var u = navigator.userAgent
-    //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) // ios终端
-    //   // XXX: 修复iOS版微信HTML5 History兼容性问题
-    //   if (isiOS && to.path !== location.pathname) {
-    //     // 此处不可使用location.replace
-    //     location.assign(to.fullPath)
-    //   } else {
-    //     next()
-    //   }
-    // },
+    beforeRouteEnter (to, from, next) {
+      var u = navigator.userAgent
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) // ios终端
+      // XXX: 修复iOS版微信HTML5 History兼容性问题
+      if (isiOS && to.path !== location.pathname) {
+        // 此处不可使用location.replace
+        location.assign(to.fullPath)
+      } else {
+        next()
+      }
+    },
     data () {
       return {
         userInfo: this.$webStorage.getItem('userInfo'),
@@ -84,6 +84,7 @@
         showLoginOut: false,
         errorDialog: false,
         hasConfig: false,
+        hasClick: false,
       }
     },
     computed: {},
@@ -156,6 +157,13 @@
         if (!that.hasConfig) {
           return
         }
+        if (that.hasClick) {
+          return
+        }
+        that.hasClick = true
+        setTimeout(() => {
+          that.hasClick = false
+        }, 2000)
         WechatPlugin.$wechat.scanQRCode({
           needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
           scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
@@ -183,10 +191,34 @@
         const that = this
 
         // 进行签名的时候  Android 不用使用之前的链接， ios 需要
-        // let signLink = /(Android)/i.test(navigator.userAgent) ? location.href.split('#')[0] : window.entryUrl
+        // let isAndroid = /(Android)/i.test(navigator.userAgent)
+        let reload = this.$VueCookies.get('reload')
+
+        if (!reload) {
+          this.$VueCookies.set('reload', true, 5)
+          location.reload()
+        }
+
+        let signLink = /(Android)/i.test(navigator.userAgent) ? location.href.split('#')[0] : window.entryUrl
+        // let signLink = ''
+        // if (isAndroid) {
+        //   signLink = location.href.split('#')[0]
+        // } else {
+        //   let ua = window.navigator.userAgent.toLowerCase()
+        //   if ((ua.match(/MicroMessenger/i) === 'micromessenger') && (ua.match(/wxwork/i) === 'wxwork')) {
+        //     alert('企业微信客户端')
+        //     signLink = location.href.split('#')[0]
+        //     location.assign(signLink)
+        //   } else {
+        //     alert('微信')
+        //     signLink = window.entryUrl
+        //   }
+        // }
+        // alert('签名url： ' + location.href.split('#')[0])
+        // alert('签名url： ' + signLink)
         API.account.weixinJs({
-          url: encodeURIComponent(location.href.split('#')[0]),
-          // url: encodeURIComponent(signLink),
+          // url: encodeURIComponent(location.href.split('#')[0]),
+          url: encodeURIComponent(signLink),
         }).then(da => {
           // console.log(da)
           WechatPlugin.$wechat.config({
