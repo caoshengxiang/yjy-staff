@@ -7,7 +7,11 @@
       </div>
       <div class="form-group">
         <div class="title">订单号</div>
-        <div class="text">{{detail.orderId}}</div>
+        <div class="text">{{detail.orderStr}}</div>
+      </div>
+      <div class="form-group">
+        <div class="title">会员等级</div>
+        <div class="text">{{detail.memberLevelName}}</div>
       </div>
       <div class="form-group">
         <div class="title">报名人</div>
