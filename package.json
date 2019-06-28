@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "dev": "vue-cli-service serve --mode development",
+    "build:test": "vue-cli-service build --mode development",
+    "build:prod": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
-    "release:test": "npm run build && bash ./bash/test.sh",
+    "release:test": "npm run build:test && bash ./bash/test.sh",
     "push:prod": "bash ./bash/prod.sh",
     "push:prod2": "bash ./bash/prod2.sh"
   },
