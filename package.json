@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve --mode development",
-    "build:test": "vue-cli-service build --mode development && ./bash/compress.sh",
-    "build:prod": "vue-cli-service build --mode production && ./bash/compress.sh",
+    "build:test": "vue-cli-service build --mode development && bash ./bash/compress.sh",
+    "build:prod": "vue-cli-service build --mode production && bash ./bash/compress.sh",
     "lint": "vue-cli-service lint",
     "release:test": "npm run build:test && bash ./bash/test.sh",
     "push:prod": "bash ./bash/prod.sh",

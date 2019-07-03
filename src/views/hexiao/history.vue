@@ -22,6 +22,7 @@
           <span>{{item.applyerName}}</span>
           <span v-if="item.applerPhone">{{item.applerPhone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')}}</span>
           <span>{{item.checkedPerons}}人</span>
+          <span>{{item.memberLevelName}}人</span>
         </div>
         <div class="hexiao-time">{{$moment(item.created, 'M月DD日 HH:mm')}}</div>
       </div>
