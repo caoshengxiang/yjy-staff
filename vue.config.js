@@ -1,7 +1,7 @@
-// const path = require('path')
-// const resolve = dir => {
-//   return path.join(__dirname, dir)
-// }
+const path = require('path')
+const resolve = dir => {
+  return path.join(__dirname, dir)
+}
 // 项目部署基础
 // 默认情况下，应用将被部署在域的根目录下,
 // 默认：'/'
@@ -17,9 +17,10 @@ module.exports = {
   publicPath: BASE_URL,
   // 如果你不需要使用eslint，把lintOnSave设为false即可
   lintOnSave: true,
-  // chainWebpack: config => {
-  //   config.resolve.alias.set('@', resolve('src'))
-  // },
+  chainWebpack: config => {
+    config.resolve.alias.set('@', resolve('src'))
+    config.performance.set('hints', false) // 报错：entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance
+  },
   // 设为false打包时不生成.map文件
   productionSourceMap: false,
   runtimeCompiler: true,
@@ -56,7 +57,7 @@ module.exports = {
       favicon16: 'favicon.ico',
       appleTouchIcon: 'favicon.ico',
       maskIcon: 'favicon.ico',
-      msTileImage: 'favicon.ico'
-    }
-  }
+      msTileImage: 'favicon.ico',
+    },
+  },
 }
